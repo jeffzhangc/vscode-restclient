@@ -12,9 +12,10 @@ export class HttpRequest {
         public headers: RequestHeaders,
         public body?: string | Stream,
         public rawBody?: string,
+        public postCmd?: string,
         public name?: string) {
-            this.method = method.toLocaleUpperCase();
-            this.isCancelled = false;
+        this.method = method.toLocaleUpperCase();
+        this.isCancelled = false;
     }
 
     public get contentType(): string | undefined {

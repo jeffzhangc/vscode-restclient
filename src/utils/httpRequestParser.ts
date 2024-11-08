@@ -18,6 +18,7 @@ enum ParseState {
     URL,
     Header,
     Body,
+    Cmd,
 }
 
 export class HttpRequestParser implements RequestParser {
@@ -37,6 +38,7 @@ export class HttpRequestParser implements RequestParser {
         const headersLines: string[] = [];
         const bodyLines: string[] = [];
         const variableLines: string[] = [];
+        const cmdLines: string[] = [];
 
         let state = ParseState.URL;
         let currentLine: string | undefined;
@@ -66,7 +68,20 @@ export class HttpRequestParser implements RequestParser {
                         state = ParseState.Body;
                     }
                     break;
+                case ParseState.Cmd:
+                    if (currentLine?.trim() === '%}') {
+                        lines.shift();
+                        state = ParseState.Body;
+                        break
+                    }
+                    cmdLines.push(currentLine)
+                    break;
                 case ParseState.Body:
+                    if (currentLine?.startsWith("> {%")) {
+                        state = ParseState.Cmd
+                        // cmdLines.push(currentLine)
+                        break
+                    }
                     bodyLines.push(currentLine);
                     break;
             }
@@ -122,7 +137,7 @@ export class HttpRequestParser implements RequestParser {
             requestLine.url = `${scheme}://${host}${requestLine.url}`;
         }
 
-        return new HttpRequest(requestLine.method, requestLine.url, headers, body, bodyLines.join(EOL), name);
+        return new HttpRequest(requestLine.method, requestLine.url, headers, body, bodyLines.join(EOL), cmdLines.join(EOL), name);
     }
 
     private async createGraphQlBody(variableLines: string[], contentTypeHeader: string | undefined, body: string | Stream | undefined) {

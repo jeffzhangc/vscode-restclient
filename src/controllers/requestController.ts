@@ -89,6 +89,16 @@ export class RequestController {
         }
     }
 
+    private async _doPostCmd(cmds, requestName, response) {
+        console.log(`zhanghl test ${cmds},${requestName},${response.body}`)
+        try {
+            eval(cmds)
+        } catch (e) {
+            console.log("eval error", e)
+        }
+        console.log("zhanghl test...", process.env["abc"])
+    }
+
     private async runCore(httpRequest: HttpRequest, settings: IRestClientSettings, document?: TextDocument) {
         // clear status bar
         this._requestStatusEntry.update({ state: RequestState.Pending });
@@ -110,6 +120,10 @@ export class RequestController {
 
             if (httpRequest.name && document) {
                 RequestVariableCache.add(document, httpRequest.name, response);
+            }
+
+            if (httpRequest.postCmd) {
+                await this._doPostCmd(httpRequest.postCmd, httpRequest.name, response)
             }
 
             try {
