@@ -1,3 +1,30 @@
+# Changelog
+
+All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
+### 0.26.1 (2024-11-11)
+
+
+### Features
+
+* add cmds when post request ([89425fe](https://github.com/Huachao/vscode-restclient/commit/89425feed018c9eceb59a54911e884f284d24ad8))
+* **graphql:** forces http header value to be lowercase ([#1237](https://github.com/Huachao/vscode-restclient/issues/1237)) ([0d290ef](https://github.com/Huachao/vscode-restclient/commit/0d290efe9cadb0cd4bd9908a7ed7944748580644)), closes [#1236](https://github.com/Huachao/vscode-restclient/issues/1236)
+* import open api / swagger files ([#1207](https://github.com/Huachao/vscode-restclient/issues/1207)) ([3d82783](https://github.com/Huachao/vscode-restclient/commit/3d82783d93a435999040fcd1b4770ec7e7568bb0))
+* preview response body ([#907](https://github.com/Huachao/vscode-restclient/issues/907)) ([33c07c5](https://github.com/Huachao/vscode-restclient/commit/33c07c57a8a4df9398bcd257669607fc05dce11e))
+* 扩展 client global post 后续函数执行 ([c81a024](https://github.com/Huachao/vscode-restclient/commit/c81a02460be59d102d87e15ea12368bda758147d))
+
+
+### Bug Fixes
+
+* [#10](https://github.com/Huachao/vscode-restclient/issues/10) ([dc374c9](https://github.com/Huachao/vscode-restclient/commit/dc374c96bb8b67b9b799e72e2a534dae990a65db))
+* double escape path ([9efe388](https://github.com/Huachao/vscode-restclient/commit/9efe3884100c0d7fe70d98c76b15ec11b3277de9))
+* get history requests from previous versions ([7c3eac6](https://github.com/Huachao/vscode-restclient/commit/7c3eac6b0e10aba2782f4662daabce4b1ef02255))
+* image extension ([5b78c24](https://github.com/Huachao/vscode-restclient/commit/5b78c24387bc0ee42fc40bf3db910676c4638262))
+* merge multiples into one line in README.md ([f2e3b07](https://github.com/Huachao/vscode-restclient/commit/f2e3b077bd347b3c8d35d0962b9ecca774436975))
+* **package.json:** fix command `rest-client-*` not found error ([#449](https://github.com/Huachao/vscode-restclient/issues/449)) ([9ce6ea6](https://github.com/Huachao/vscode-restclient/commit/9ce6ea60f596b032cf82f1adc0ca3b1eb9c7626e))
+* preserve multiple set-cookie headers ([#1278](https://github.com/Huachao/vscode-restclient/issues/1278)) ([9ab5f61](https://github.com/Huachao/vscode-restclient/commit/9ab5f61e39be81793023614af366cfb5c8094e45))
+* respect proxy setting ([f5e84e3](https://github.com/Huachao/vscode-restclient/commit/f5e84e3720b05c1daaaf1168d1ae46500fd9af10))
+
 ## 0.25.1 (2022/07/06)
 * __Bug Fix__: [Fix request parse error for curl request without body](https://github.com/Huachao/vscode-restclient/issues/1026)
 
