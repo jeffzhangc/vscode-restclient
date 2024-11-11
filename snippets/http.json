@@ -101,5 +101,25 @@
             "# @note"
         ],
         "description": "Add sending request confirmation"
+    },
+    "Client global set variable": {
+        "prefix": "gs",
+        "body":[
+            "client.global.set(${1:Variable_Name}, ${2:Variable_Value});"
+        ],
+        "description": "Add process env variable"
+    },
+    "Post script":{
+        "prefix":"ps",
+        "body":[
+            "> {%",
+            "// post script",
+            "// client: client instance",
+            "// client.global.set('n1','n2')",
+            "// response: response instance",
+            "// response.body: ",
+            "// response.statusCode ",
+            "%}"
+        ]
     }
 }

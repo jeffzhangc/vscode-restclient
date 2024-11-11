@@ -13,6 +13,7 @@ import { UserDataManager } from '../utils/userDataManager';
 import { getCurrentTextDocument } from '../utils/workspaceUtility';
 import { HttpResponseTextDocumentView } from '../views/httpResponseTextDocumentView';
 import { HttpResponseWebview } from '../views/httpResponseWebview';
+import { HttpClientEx } from '../idea/http-client-ex';
 
 export class RequestController {
     private _requestStatusEntry: RequestStatusEntry;
@@ -21,6 +22,7 @@ export class RequestController {
     private _textDocumentView: HttpResponseTextDocumentView;
     private _lastRequestSettingTuple: [HttpRequest, IRestClientSettings];
     private _lastPendingRequest?: HttpRequest;
+    private _clientEx: HttpClientEx;
 
     public constructor(context: ExtensionContext) {
         this._requestStatusEntry = new RequestStatusEntry();
@@ -28,6 +30,7 @@ export class RequestController {
         this._webview = new HttpResponseWebview(context);
         this._webview.onDidCloseAllWebviewPanels(() => this._requestStatusEntry.update({ state: RequestState.Closed }));
         this._textDocumentView = new HttpResponseTextDocumentView();
+        this._clientEx = new HttpClientEx()
     }
 
     @trace('Request')
@@ -90,13 +93,15 @@ export class RequestController {
     }
 
     private async _doPostCmd(cmds, requestName, response) {
-        console.log(`zhanghl test ${cmds},${requestName},${response.body}`)
         try {
-            eval(cmds)
+            // 使用new Function创建函数，注意这里的语法
+            Logger.info(`do post cmd \n-=-=-=-=-=-=-=-=\n${cmds}\n-=-=-=-=-=-=-=-=`);
+            const callFunc = new Function('client', 'response', cmds); // 正确的new Function使用方式
+            callFunc(this._clientEx, response); // 调用函数，传入this._clientEx作为
         } catch (e) {
-            console.log("eval error", e)
+            // console.log("eval error", e)
+            Logger.error(`do post cmd:\n-=-=-=-=-=-=-=-=\n ${cmds} \n-=-=-=-=-=-=-=-=\n`, e)
         }
-        console.log("zhanghl test...", process.env["abc"])
     }
 
     private async runCore(httpRequest: HttpRequest, settings: IRestClientSettings, document?: TextDocument) {
