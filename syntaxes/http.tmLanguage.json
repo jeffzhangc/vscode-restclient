@@ -8,6 +8,11 @@
   "name": "http",
   "patterns": [
     {
+      "begin": "^> {%",
+      "name": "post.script.code.block",
+      "end": "^%}"
+    },
+    {
       "begin": "^\\s*(?=curl)",
       "name": "http.request.curl",
       "end": "^\\s*(\\#{3,}.*?)?\\s*$",

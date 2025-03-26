@@ -96,8 +96,8 @@ export class RequestController {
         try {
             // 使用new Function创建函数，注意这里的语法
             Logger.info(`do post cmd \n-=-=-=-=-=-=-=-=\n${cmds}\n-=-=-=-=-=-=-=-=`);
-            const callFunc = new Function('client', 'response', cmds); // 正确的new Function使用方式
-            callFunc(this._clientEx, response); // 调用函数，传入this._clientEx作为
+            const callFunc = new Function('client', 'response', 'logger', cmds); // 正确的new Function使用方式
+            callFunc(this._clientEx, response, Logger); // 调用函数，传入this._clientEx作为
         } catch (e) {
             // console.log("eval error", e)
             Logger.error(`do post cmd:\n-=-=-=-=-=-=-=-=\n ${cmds} \n-=-=-=-=-=-=-=-=\n`, e)
